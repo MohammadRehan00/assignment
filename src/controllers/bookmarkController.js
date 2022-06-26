@@ -27,8 +27,18 @@ const createBookmark = async function (req,res) {
         }
         if (!validate.isValid(tags)) {
             return res.status(400).send({ status: false, msg: 'pls provide tags' })
+        }
+
+
+        const newBookmark = await bookmarkModel.create(requestBody )
+        
+        return res.status(201).send({ status: true, message: "bookmark created successfully", data: newBookmark })
+        
        
-      
+
+    } catch (err) {
+        return res.status(500).send({ status: false, message: err.message })
+    }
 }
 
 const deletingBookMark = async function (req, res) {
